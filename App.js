@@ -9,7 +9,7 @@ export default class NavigatorIOSApp extends Component {
       <NavigatorIOS
         initialRoute={{
           component: Login,
-          title: 'Login Page',
+          title: 'Login Page'
         }}
         style={{flex: 1}}
       />

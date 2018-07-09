@@ -2,6 +2,7 @@
 const dataStructure = (dataArr) => {
   let output = {
     customer_id: dataArr[0].customer_id,
+    photo: dataArr[0].photo,
     name: dataArr[0].name,
     email: dataArr[0].email,
     phone_number: dataArr[0].phone_number,

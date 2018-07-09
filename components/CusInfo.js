@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { StyleSheet, Text, ScrollView, View, TextInput, Modal } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, TextInput } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import Service from './Service';
 import Signature from './Signature';
@@ -16,6 +16,7 @@ export default class CusInfo extends Component {
     }
     this.changeService = this.changeService.bind(this);
     this.update = this.update.bind(this);
+    this.updatePackage = this.updatePackage.bind(this);
   }
 
   changeService = (num) => {
@@ -30,25 +31,45 @@ export default class CusInfo extends Component {
       currentService: serviceId,
       currentPackage: packageId
     })
-    console.log(serviceId,packageId, 'i will update this service id!!!')
+  }
 
+  updatePackage = (signature) => {
+    let date = new Date
+    this.props.cusInfo[this.state.currentService][this.state.currentPackage].used.push({signature: 'test', used_date: date});
+    this.props.cusInfo[this.state.currentService][this.state.currentPackage].remaining_count--;
+    this.setState({
+      showSignature: false,
+      service: this.props.cusInfo[this.state.currentService]
+    })
+    fetch(`http://localhost:3000/customer/update`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        packageId: this.state.currentPackage,
+        signature: signature,
+        date: date
+      }),
+    })
   }
 
 
   render() {
     return(
       <View style={styles.container}>
-        <View sytle={styles.infoContainer}>
-          <View>
-            <Avatar
-              small
-              rounded
-              icon={{name: 'camera-enhance'}}
-              onPress={() => console.log(this.props.cusInfo)}
-              activeOpacity={0.7}
-              // containerStyle={{flex: 2, marginLeft: 20, marginTop: 115}}
-            />
-          </View>
+        <View style={styles.infoContainer}>
+          <Avatar
+            height={100}
+            width={100} 
+            rounded
+            source={{uri:this.props.cusInfo.photo ? this.props.cusInfo.photo : 'https://s3-us-west-1.amazonaws.com/picture-nerdstrom/noun_Face_342135.png'}}
+            // icon={{name: 'camera-enhance'}}
+            overlayContainerStyle={{backgroundColor: 'white'}}
+            onPress={() => console.log(this.props.cusInfo)}
+            activeOpacity={0.7}
+          />
           <View styles={styles.customInfo}>
             <Text>
               Name: {this.props.cusInfo.name}
@@ -98,6 +119,7 @@ export default class CusInfo extends Component {
           {this.state.showSignature 
             ? <Signature 
                 packageInfo={this.props.cusInfo[this.state.currentService][this.state.currentPackage]}
+                updatePackage={this.updatePackage}
               /> 
             : null}
         </View>
@@ -117,9 +139,13 @@ const styles = StyleSheet.create({
   infoContainer: {
     flex: 1,
     flexDirection: 'row',
-    marginTop: '10%',
-    marginBottom: '10%',
-    justifyContent: 'center'
+    marginTop: '5%',
+    marginBottom: '5%',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  customInfo: {
+    width: '70%'
   },
   buttonContainer: {
     flex: 1,

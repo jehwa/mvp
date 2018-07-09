@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { List, ListItem, SearchBar, FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements'
+import { List, ListItem, SearchBar, FormLabel, FormInput, FormValidationMessage, Button, Avatar } from 'react-native-elements'
 import CusInfo from './CusInfo';
+import SvgUri from 'react-native-svg-uri';
 
 
 export default class Search extends Component { 
@@ -30,7 +31,6 @@ export default class Search extends Component {
     fetch(`http://localhost:3000/shop/${this.props.shopId}/${this.state.searchName}`)
       .then(res => res.json())
       .then(data => {
-        // console.log(data, 'this one!!!');
         if(!data.length) {
           alert('no data');
         }
@@ -43,11 +43,11 @@ export default class Search extends Component {
   }
 
   _onForward(shopId, customerId) {
-    console.log(shopId, customerId);
 
     fetch(`http://localhost:3000/customer/${shopId}/${customerId}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         this.props.navigator.push({
           component: CusInfo,
           title: 'Customer information',
@@ -61,25 +61,43 @@ export default class Search extends Component {
     return (
       <View>
         <View style={styles.container}>
-          <FormLabel>Name</FormLabel>
+          <View style={styles.svgHair}>
+            <SvgUri width="100" height="100" source={require('../image/style1.svg')} />
+            <SvgUri width="100" height="100" source={require('../image/style2.svg')} />
+            <SvgUri width="100" height="100" source={require('../image/style3.svg')} />
+          </View>
           <FormInput 
+            inputStyle={styles.input}
             value={this.state.searchName}
             autoCapitalize="none"
             placeholder='Search customer'
             onChangeText={this.onChange}/>
           <FormValidationMessage></FormValidationMessage>
           <Button 
-            small
+            raised
             icon={{name: 'person-outline'}}
             title='FIND'
-            onPress={this.onSubmit} />
+            rounded={true}
+            fontWeight='bold'
+            backgroundColor='#0f3057'
+            containerViewStyle={styles.button}
+            onPress={this.onSubmit} 
+            />
         </View>
         <View>
-          <List>
+          <List containerStyle={styles.listContainer}>
             {
               this.state.customers.map((l,i) => (
                 <ListItem 
+                  avatar={<Avatar
+                            overlayContainerStyle={{backgroundColor: 'white'}}
+                            rounded
+                            source={{uri:l.photo ? l.photo : 'https://s3-us-west-1.amazonaws.com/picture-nerdstrom/noun_Face_342135.png'}}
+                          />}
+                  hideChevron={true}
+                  containerStyle={styles.list}
                   title={l.name} 
+                  subtitle={l.email}
                   key={l.customer_id}
                   onPress={() => this._onForward(this.props.shopId, l.customer_id)}/>
               ))
@@ -98,5 +116,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 100
     // justifyContent: 'center',
+  },
+  button: {
+    width: 200,
+  },
+  input: {
+    marginTop: '20%',
+    width: 350,
+  },
+  svgHair: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  listContainer: {
+    // border: 'none',
+    borderColor: 'transparent',
+    alignItems: 'center'
+  },
+  list: {
+    width: 350,
   },
 });

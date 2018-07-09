@@ -14,7 +14,8 @@ CREATE TABLE customers(
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT,
-  phone_number TEXT NOT NULL
+  phone_number TEXT NOT NULL,
+  photo TEXT
 );
 
 CREATE TABLE services(
@@ -50,11 +51,11 @@ CREATE TABLE shop_per_service(
 );
 
 INSERT INTO shops (name) VALUES ('Admin');
-INSERT INTO customers (name, email, phone_number) VALUES
-  ('ryan', 'ryan_fake@gmail.com', '123-123-1234'),
-  ('fiona', 'fiona_fake@gmail.com', '234-234-2345'),
-  ('mat C', 'mat_fake@gmail.com', '345-345-3456'),
-  ('rysa', 'rysa_fake@gmail.com', '456-456-4567');
+INSERT INTO customers (name, email, phone_number, photo) VALUES
+  ('ryan', 'ryan_fake@gmail.com', '123-123-1234', 'https://s3-us-west-1.amazonaws.com/picture-nerdstrom/0120cf15-e9af-4a6c-8e75-a165b3016c7d.jpg'),
+  ('fiona', 'fiona_fake@gmail.com', '234-234-2345', null),
+  ('mat C', 'mat_fake@gmail.com', '345-345-3456', null),
+  ('rysa', 'rysa_fake@gmail.com', '456-456-4567', null);
 INSERT INTO services (service) VALUES 
   ('blow-dry'),
   ('coloring'),

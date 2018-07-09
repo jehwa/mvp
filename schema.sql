@@ -29,7 +29,8 @@ CREATE TABLE purchase(
   service_id integer REFERENCES services(id),
   purchase_date DATE NOT NULL,
   total_count integer NOT NULL,
-  remaining_count integer NOT NULL
+  remaining_count integer NOT NULL,
+  amount integer NOT NULL
 );
 
 CREATE TABLE used(
@@ -41,6 +42,11 @@ CREATE TABLE used(
 CREATE TABLE shop_per_customer(
   shop_id integer REFERENCES shops(id),
   customer_id integer REFERENCES customers(id)
+);
+
+CREATE TABLE shop_per_service(
+  shop_id integer REFERENCES shops(id),
+  service_id integer REFERENCES services(id)
 );
 
 INSERT INTO shops (name) VALUES ('Admin');
@@ -58,6 +64,21 @@ INSERT INTO shop_per_customer VALUES
   (1,2),
   (1,3),
   (1,4);
+
+INSERT INTO shop_per_service VALUES
+  (1,1),
+  (1,2),
+  (1,3);
+
+INSERT INTO purchase (shop_id, customer_id, service_id, purchase_date, total_count, remaining_count, amount) VALUES
+  (1, 1, 1, '2018-3-5', 10, 7, 100),
+  (1, 1, 1, '2018-5-7', 10, 10, 150),
+  (1, 1, 2, '2018-5-7', 10, 10, 200);
+
+INSERT INTO used VALUES
+  (1, '2018-3-5', 'sign'),
+  (1, '2018-4-1', 'sign2'),
+  (1, '2018-5-3', 'sign3');
 
 
 -- run psql postgres < schema.sql

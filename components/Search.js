@@ -44,11 +44,17 @@ export default class Search extends Component {
 
   _onForward(shopId, customerId) {
     console.log(shopId, customerId);
-    this.props.navigator.push({
-      component: CusInfo,
-      title: 'Customer information',
-      passProps: {shopId, customerId}
-    })
+
+    fetch(`http://localhost:3000/customer/${shopId}/${customerId}`)
+      .then(res => res.json())
+      .then(data => {
+        this.props.navigator.push({
+          component: CusInfo,
+          title: 'Customer information',
+          passProps: {cusInfo: data, shopId: shopId}
+        })
+      })
+      .catch(err => console.log(err));
   }
 
   render() { 

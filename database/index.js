@@ -19,6 +19,12 @@ const findCustomer = (shopId, name) => {
   return db.many(query).catch(err => console.log(err));
 }
 
+const bringCusInfo = (cusId) => {
+  const query = `select c.name, c.email, c.phone_number, p.id, p.shop_id, p.customer_id, s.service, p.service_id, p.purchase_date, p.total_count, p.remaining_count, u.used_date, u.signature from customers c left join purchase p on c.id=p.customer_id left join used u on p.id=u.purchase_id left join services s on s.id=p.service_id where c.id=${cusId} and p.remaining_count > 0;`
+
+  return db.any(query).catch(err => console.log(err));
+}
+
 module.exports = {
-  findShop, findCustomer
+  findShop, findCustomer, bringCusInfo
 }

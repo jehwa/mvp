@@ -51,13 +51,11 @@ export default class Login extends Component {
       //   .then(res => console.log(res))
       //   .catch(err => console.log(err));
       console.log('hey')
-      fetch(`http://localhost:3000/shop/${this.state.userName}`)
+      fetch(`http://localhost:3000/shop/login/${this.state.userName}`)
         .then(res => res.json())
         .then(json => this._onForward(json.id))
         .catch(err => console.log(err, 'cannot set get request'));
-      // this._onForward();
     }
-    // console.log(this.state.emptyUserName);
   }
 
   render() {

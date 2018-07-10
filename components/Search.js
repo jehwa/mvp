@@ -112,7 +112,7 @@ export default class Search extends Component {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     alignItems: 'center',
     marginTop: 100
     // justifyContent: 'center',

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { StyleSheet, Text, ScrollView, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { Avatar, Button } from 'react-native-elements';
 import Service from './Service';
 import Signature from './Signature';
@@ -70,41 +70,52 @@ export default class CusInfo extends Component {
             onPress={() => console.log(this.props.cusInfo)}
             activeOpacity={0.7}
           />
-          <View styles={styles.customInfo}>
-            <Text>
-              Name: {this.props.cusInfo.name}
+          <View style={styles.customInfo}>
+            <Text style={styles.eachInfo}>
+              NAME: {this.props.cusInfo.name}
             </Text>
-            <Text>
-              Email: {this.props.cusInfo.email}
+            <Text style={styles.eachInfo}>
+              E-MAIL: {this.props.cusInfo.email}
             </Text>
-            <Text>
-              Phone Number: {this.props.cusInfo.phone_number}
+            <Text style={styles.eachInfo}>
+              PHONE: {this.props.cusInfo.phone_number}
             </Text>
           </View>
         </View>
         <View style={styles.buttonContainer}>
           <View>
           <Button
-          buttonStyle={styles.buttonStyle}
+          // buttonStyle={styles.buttonStyle}
           raised
+          rounded={true}
+          fontWeight='bold'
+          backgroundColor='#00587a'
+          containerViewStyle={styles.buttonStyle}
           onPress={() => this.changeService(1)}
-          icon={{name: 'cached'}}
+          // icon={{name: 'cached'}}
           title='BLOW DRY'/>
           </View>
           <View>
           <Button
           raised
-          buttonStyle={styles.buttonStyle}
+          rounded={true}
+          fontWeight='bold'
+          backgroundColor='#20366b'
+          containerViewStyle={styles.buttonStyle}
           onPress={() => this.changeService(2)}
-          icon={{name: 'cached'}}
+          // icon={{name: 'cached'}}
           title='COLORING'/>
           </View>
           <View>
           <Button
           raised
-          buttonStyle={styles.buttonStyle}
+          title='COLORING'
+          rounded={true}
+          fontWeight='bold'
+          backgroundColor='#008891'
+          containerViewStyle={styles.buttonStyle}
           onPress={() => this.changeService(3)}
-          icon={{name: 'cached'}}
+          // icon={{name: 'cached'}}
           title='SCALP CARE'/>
           </View>
         </View>
@@ -131,7 +142,7 @@ export default class CusInfo extends Component {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    // backgroundColor: 'red',
+    // backgroundColor: '#f6f6f6',
     // alignItems: 'center',
     marginTop: 100
     // justifyContent: 'center',
@@ -144,8 +155,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  eachInfo: {
+    fontSize: 16,
+    color: '#283149',
+    fontWeight: 'bold'
+    // fontFamily: 'ArialMT',
+    // marginBottom: 10
+  },
   customInfo: {
-    width: '70%'
+    width: '60%'
   },
   buttonContainer: {
     flex: 1,

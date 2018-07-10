@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'red',
-    // alignItems: 'center',
-    marginBottom: '20%'
-    // justifyContent: 'center',
+    // backgroundColor: '#f6f6f6',
+    alignItems: 'center',
+    marginBottom: '20%',
+    justifyContent: 'center',
   },
 });

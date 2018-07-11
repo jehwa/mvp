@@ -34,7 +34,8 @@ export default class CusInfo extends Component {
   }
 
   updatePackage = (signature) => {
-    let date = new Date
+    let date = new Date().toLocaleString('en-US', {timeZone: 'America/Los_Angeles'})
+    console.log(date, 'date for db')
     this.props.cusInfo[this.state.currentService][this.state.currentPackage].used.push({signature: 'test', used_date: date});
     this.props.cusInfo[this.state.currentService][this.state.currentPackage].remaining_count--;
     this.setState({

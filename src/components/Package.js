@@ -9,7 +9,7 @@ import SvgUri from 'react-native-svg-uri';
 const Package = (props) => {
   return(
         <Text style={styles.container}>
-        {props.used ? new Date(props.used.used_date).toLocaleDateString('en-US', {month: 'numeric', day: 'numeric'}) : <SvgUri width="48" height="48" alignItems="center" source={require('../image/available.svg')} />}
+        {props.used ? new Date(props.used.used_date).toLocaleDateString('en-US', {month: 'numeric', day: 'numeric'}) : <SvgUri width="48" height="48" alignItems="center" source={require('../../image/available.svg')} />}
         </Text>
   )
 

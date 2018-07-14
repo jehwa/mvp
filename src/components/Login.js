@@ -63,11 +63,11 @@ export default class Login extends Component {
     return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.svgContainer}>
-        <SvgUri width="300" height="300" source={require('../image/hair.svg')} />
+        <SvgUri width="300" height="300" source={require('../../image/hair.svg')} />
         <View style={styles.svgHair}>
-          <SvgUri width="100" height="100" source={require('../image/style1.svg')} />
-          <SvgUri width="100" height="100" source={require('../image/style2.svg')} />
-          <SvgUri width="100" height="100" source={require('../image/style3.svg')} />
+          <SvgUri width="100" height="100" source={require('../../image/style1.svg')} />
+          <SvgUri width="100" height="100" source={require('../../image/style2.svg')} />
+          <SvgUri width="100" height="100" source={require('../../image/style3.svg')} />
         </View>
       </View>
       <View style={styles.inputContainer}>

@@ -62,9 +62,9 @@ export default class Search extends Component {
       <View>
         <View style={styles.container}>
           <View style={styles.svgHair}>
-            <SvgUri width="100" height="100" source={require('../image/style1.svg')} />
-            <SvgUri width="100" height="100" source={require('../image/style2.svg')} />
-            <SvgUri width="100" height="100" source={require('../image/style3.svg')} />
+            <SvgUri width="100" height="100" source={require('../../image/style1.svg')} />
+            <SvgUri width="100" height="100" source={require('../../image/style2.svg')} />
+            <SvgUri width="100" height="100" source={require('../../image/style3.svg')} />
           </View>
           <FormInput 
             inputStyle={styles.input}

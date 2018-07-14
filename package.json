@@ -5,6 +5,7 @@
   "devDependencies": {
     "jest-expo": "~27.0.0",
     "nodemon": "^1.17.5",
+    "react-native-debugger-open": "^0.3.17",
     "react-native-scripts": "1.14.0",
     "react-test-renderer": "16.3.1"
   },
@@ -15,7 +16,8 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "jest",
-    "startDev": "nodemon ./server/index.js"
+    "startDev": "nodemon ./server/index.js",
+    "postinstall": "rndebugger-open --expo"
   },
   "jest": {
     "preset": "jest-expo"
@@ -29,6 +31,9 @@
     "react-native-axios": "^0.17.1",
     "react-native-elements": "^0.19.1",
     "react-native-signature-pad": "0.0.8",
-    "react-native-svg-uri": "^1.2.3"
+    "react-native-svg-uri": "^1.2.3",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   }
 }

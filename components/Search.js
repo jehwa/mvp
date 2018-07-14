@@ -28,7 +28,7 @@ export default class Search extends Component {
     // console.log(this.textInputRef, this.textRef)
     // this.textRef.clear();
     // console.log(this.textRef, 'please work!!!');
-    fetch(`http://localhost:3000/shop/${this.props.shopId}/${this.state.searchName}`)
+    fetch(`http://localhost:3003/shop/${this.props.shopId}/${this.state.searchName}`)
       .then(res => res.json())
       .then(data => {
         if(!data.length) {
@@ -44,7 +44,7 @@ export default class Search extends Component {
 
   _onForward(shopId, customerId) {
 
-    fetch(`http://localhost:3000/customer/${shopId}/${customerId}`)
+    fetch(`http://localhost:3003/customer/${shopId}/${customerId}`)
       .then(res => res.json())
       .then(data => {
         console.log(data);

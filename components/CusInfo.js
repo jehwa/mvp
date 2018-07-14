@@ -42,7 +42,7 @@ export default class CusInfo extends Component {
       showSignature: false,
       service: this.props.cusInfo[this.state.currentService]
     })
-    fetch(`http://localhost:3000/customer/update`, {
+    fetch(`http://localhost:3003/customer/update`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

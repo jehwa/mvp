@@ -3,7 +3,7 @@ const app = express();
 const db = require('../database/index');
 const helper = require('./helper');
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3003
 
 app.use(express.json());
 

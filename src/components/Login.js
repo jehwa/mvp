@@ -4,62 +4,40 @@ import { StyleSheet, Text, ScrollView, View, TextInput } from 'react-native';
 import Search from './Search';
 import { FormLabel, Button, FormInput, FormValidationMessage } from 'react-native-elements';
 import SvgUri from 'react-native-svg-uri';
+import { changeEmptyUserName, changeEmptyPassword, searchShopId} from '../actions/login';
+import { connect } from 'react-redux';
 
-export default class Login extends Component { 
+
+class Login extends Component { 
   constructor(props, context) {
     super(props, context);
     this.state = {
       userName: '',
-      passWord: '',
-      emptyUserName: null,
-      emptyPassWord: null,
-      shopId: null
+      password: '',
     }
     this._onForward = this._onForward.bind(this);
   }
 
-  _onForward(shopId) {
+  _onForward() {
     this.props.navigator.push({
       component: Search,
       title: 'Search Customer',
-      passProps: {shopId: shopId}
     })
-
   }
 
   handleSubmit = () => {
-    if(!this.state.userName.length) {
-      this.setState({
-        emptyUserName: 'Please put valid username'
-      })
-    } else {
-      this.setState({
-        emptyUserName: null
-      })
-    }
-    if(!this.state.passWord.length) {
-      this.setState({
-        emptyPassWord: 'Please put valid password'
-      })
-    } else {
-      this.setState({
-        emptyPassWord: null
-      })
-    }
-    if(this.state.userName === 'Admin' && this.state.passWord === 'Admin') {
-      // axios.get(`/shop/${this.state.userName}`)
-      //   .then(res => console.log(res))
-      //   .catch(err => console.log(err));
-      console.log('hey')
-      fetch(`http://localhost:3003/shop/login/${this.state.userName}`)
-        .then(res => res.json())
-        .then(json => this._onForward(json.id))
-        .catch(err => console.log(err, 'cannot set get request'));
+    this.state.userName.length ? this.props.changeEmptyUserName(null) : this.props.changeEmptyUserName('Please put valid username');
+
+    this.state.password.length ? this.props.changeEmptyPassword(null) : this.props.changeEmptyPassword('Please put valid password');
+
+    if(this.state.userName === 'Admin' && this.state.password === 'Admin') {
+      this.props.searchShopId(this.state.userName);
+      this._onForward();
+      console.log(this.props)
     }
   }
 
   render() {
-
     return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.svgContainer}>
@@ -72,20 +50,19 @@ export default class Login extends Component {
       </View>
       <View style={styles.inputContainer}>
         <FormInput 
-          // containerViewStyle={styles.input}
           placeholder="Username"
           inputStyle={styles.input}
           onChangeText={(input) => this.setState({userName: input})}/>
-        <FormValidationMessage>{this.state.emptyUserName}</FormValidationMessage>
+        <FormValidationMessage>{this.props.emptyUserName}</FormValidationMessage>
         <FormInput 
           secureTextEntry={true}
           inputStyle={styles.input}
           // keyboardAppearance={'default'}
           // keyboardType={'default'}
           placeholder="Password"
-          onChangeText={(input) => this.setState({passWord: input})}
+          onChangeText={(input) => this.setState({password: input})}
           />
-        <FormValidationMessage>{this.state.emptyPassWord}</FormValidationMessage>
+        <FormValidationMessage>{this.props.emptyPassword}</FormValidationMessage>
         <Button
           raised
           title="SIGN IN"
@@ -104,44 +81,40 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
   contentContainer: {
     backgroundColor: '#f6f6f6',
-    // backgroundColor: 'red',
     opacity: 5,
     height: '100%'
-    // alignItems: 'center',
-    // paddingTop: 50,
   },
   svgContainer: {
-    // flex:1,
     alignItems: 'center',
-    // justifyContent: 'center',
-    // backgroundColor: 'red',
   },
   inputContainer: {
     flex: 1,
     marginTop: '20%',
     alignItems: 'center',
-
-    // justifyContent: 'center',
-
-    // backgroundColor: 'red',
   },
   input: {
     width: 400,
-    // backgroundColor: 'yellow',
     fontSize: 20,
-    // color: 'red'
-    // rounded: true
-    // marginTop: 100,
-    // backgroundColor: 'red',
-    // color: 100,
-    // borderWidth: 20
   },
   button: {
     width: 200,
-    // underlayColor: 'red'
   },
   svgHair: {
     flex: 1,
     flexDirection: 'row'
   },
 });
+
+const mpaStateToProps = state => ({
+  emptyUserName: state.changeEmptyUserReducer,
+  emptyPassword: state.changeEmptyPasswordReducer,
+});
+
+const mapDispatchToProps = dispatch => ({
+  changeEmptyUserName: message => dispatch(changeEmptyUserName(message)),
+  changeEmptyPassword: message => dispatch(changeEmptyPassword(message)),
+  searchShopId: shopName => dispatch(searchShopId(shopName))
+})
+
+
+export default connect(mpaStateToProps, mapDispatchToProps)(Login);

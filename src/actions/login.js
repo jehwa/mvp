@@ -15,11 +15,10 @@ export const currentShopId = (shopId) => ({
 
 export const searchShopId = (username) => {
   return (dispatch) => {
-    fetch(`http://localhost:3003/shop/login/${this.state.userName}`)
+    fetch(`http://localhost:3003/shop/login/${username}`)
       .then(res => res.json())
       .then(json => dispatch(currentShopId(json.id)))
       .catch(err => console.log(err, 'cannot set get request'));
   }
 }
-
 
